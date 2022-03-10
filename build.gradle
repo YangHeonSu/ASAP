@@ -1,0 +1,38 @@
+plugins {
+	id 'org.springframework.boot' version '2.6.1'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+}
+
+group = 'com.project'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+	implementation 'org.junit.jupiter:junit-jupiter:5.7.0'
+	implementation 'junit:junit:4.13.1'
+	implementation 'org.testng:testng:7.1.0'
+
+/*	implementation 'org.springframework.boot:spring-boot-starter-security' //스프링 시큐리티를 사용하기 위함
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5' // 뷰 단에서 현재 로그인된 사용자의 정보를 가져오기 위함*/
+
+	runtimeOnly 'org.mariadb.jdbc:mariadb-java-client' // mariaDB
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	testImplementation ('org.springframework.boot:spring-boot-starter-test') {
+		exclude group :'org.junit.vintage' , module : 'junit-vintage-engine'
+	}
+}
+
+test {
+	useJUnitPlatform()
+}
