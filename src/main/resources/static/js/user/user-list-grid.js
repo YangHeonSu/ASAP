@@ -4,7 +4,6 @@ window.onload = function () {
         url:'/loadUsers',
         dataType : 'JSON',
         success : function (response) {
-            console.log(response)
             userGrid.resetData(response);
         }
     })
