@@ -18,41 +18,50 @@ public class UserService {
     /**
      * load Users
      *
-     * @param userDTO userDTO
      * @return List<UserDTO> users
      * @throws Exception the Excetpion
      */
-    public List<UserDTO> findAllUser(UserDTO userDTO) throws Exception {
-        return userRepository.findAllUser(userDTO);
+    public List<UserDTO> findAll() throws Exception {
+        return userRepository.findAll();
     }
 
     /**
+     * save user (계정 등록)
+     * @param userDTO userDTO
+     * @throws Exception the Exception
+     */
+    public void save(UserDTO userDTO) throws Exception {
+        userRepository.save(userDTO);
+    }
+
+
+/*    *//**
      * Find User By Id(=PK)
      *
      * @param id id
      * @return UserDTO user
      * @throws Exception the Exception
-     */
+     *//*
     public Optional<UserDTO> findUserById(String id) throws Exception{
         return userRepository.findUserById(id);
     }
 
-    /**
+    *//**
      * Create Users
      *
      * @param userDTO userDTO
      * @throws Exception the Exception
-     */
+     *//*
     public void createUser(UserDTO userDTO) throws Exception {
         userRepository.registerUser(userDTO);
     }
 
-    /**
+    *//**
      * Modify Users
      *
      * @param userDTO userDTO
      * @throws Exception the Exception
-     */
+     *//*
     public void modifyUser(UserDTO userDTO) throws Exception{
         Optional<UserDTO> user = userRepository.findUserById(userDTO.getId());
         if (user.isPresent()){
@@ -60,13 +69,13 @@ public class UserService {
         }
     }
 
-    /**
+    *//**
      * Delete Users
      *
      * @param userCode id(=Pk)
      * @throws Exception
-     */
+     *//*
     public void deleteUser(String userCode) throws Exception{
         userRepository.deleteUser(userCode);
-    }
+    }*/
 }

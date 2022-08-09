@@ -1,7 +1,7 @@
 window.onload = function () {
     $.ajax({
         method: 'GET',
-        url:'/loadUsers',
+        url:'/users',
         dataType : 'JSON',
         success : function (response) {
             userGrid.resetData(response);

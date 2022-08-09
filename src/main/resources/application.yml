@@ -1,9 +1,9 @@
 spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://localhost:3306/asap?characterEncoding=UTF-8&serverTimezone=UTC
+    url: jdbc:mariadb://127.0.0.1:3306/asap?characterEncoding=UTF-8&serverTimezone=UTC
     username: root
-    password: didgjstn12#$
+    password: mysql12#$
 
   jpa:
     hibernate:

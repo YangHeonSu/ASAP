@@ -17,15 +17,14 @@ public class UserRestController {
     private final UserService userService;
 
     /**
-     * load Users
+     * findAll Users ( 계정 목록 조회)
      *
-     * @param userDTO userDTO
      * @return List<UserDTO> users
      * @throws Exception the Exception
      */
-    @GetMapping(value = "/loadUsers", produces = "application/json; charset=UTF-8")
-    public List<UserDTO> loadUsers(UserDTO userDTO) throws Exception {
-        List<UserDTO> users = userService.findAllUser(userDTO);
+    @GetMapping(value = "/users", produces = "application/json; charset=UTF-8")
+    public List<UserDTO> findAll() throws Exception {
+        List<UserDTO> users = userService.findAll();
         return users;
     }
 
@@ -39,19 +38,20 @@ public class UserRestController {
     @PostMapping(value = "/users", produces = "application/json; charset=UTF-8")
     public ResponseEntity<Map<String, Object>> createUser(@RequestBody UserDTO userDTO) throws Exception {
         Map<String, Object> createResult = new HashMap<>();
-        userService.createUser(userDTO);
+
+        userService.save(userDTO);
         createResult.put("createResult", 200);
         return ResponseEntity.ok(createResult);
     }
 
-    /**
+/*    *//**
      * Modify User
      *
      * @param id      id (= PK)
      * @param userDTO userDTO
      * @return User
      * @throws Exception the Exception
-     */
+     *//*
     @PutMapping(value = "/users/{id}", produces = "application/json; charset=UTF-8")
     public ResponseEntity<Map<String, Object>> modifyUser(@PathVariable String id, @RequestBody UserDTO userDTO) throws Exception {
         Map<String, Object> modifyResult = new HashMap<>();
@@ -60,18 +60,18 @@ public class UserRestController {
         return ResponseEntity.ok(modifyResult);
     }
 
-    /**
+    *//**
      * Delete User
      *
      * @param id id (=PK)
      * @return
      * @throws Exception the Exception
-     */
+     *//*
     @DeleteMapping(value = "/users/{id}", produces = "application/json; charset=UTF-8")
     public ResponseEntity<Map<String, Object>> deleteUser(@PathVariable String id) throws Exception {
         Map<String, Object> deleteResult = new HashMap<>();
         userService.deleteUser(id);
         deleteResult.put("deleteResult", 200);
         return ResponseEntity.ok(deleteResult);
-    }
+    }*/
 }

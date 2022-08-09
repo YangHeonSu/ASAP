@@ -39,19 +39,19 @@ public class UserController {
         return "users/userForm";
     }
 
-    /**
+  /*  *//**
      *
      *
      * @param model
      * @param id
      * @return
      * @throws Exception
-     */
+     *//*
     @GetMapping("/users/detail/{id}")
     public String modifyUserForm(Model model, @PathVariable String id) throws Exception {
         Optional<UserDTO> user = userService.findUserById(id);
         UserDTO userInfo = user.get();
         model.addAttribute("user", userInfo);
         return "users/userDetail";
-    }
+    }*/
 }
