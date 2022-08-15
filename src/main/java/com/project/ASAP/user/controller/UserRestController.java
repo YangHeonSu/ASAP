@@ -3,7 +3,9 @@ package com.project.ASAP.user.controller;
 import com.project.ASAP.user.domain.UserDTO;
 import com.project.ASAP.user.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -36,15 +38,22 @@ public class UserRestController {
      * @throws Exception the Exception
      */
     @PostMapping(value = "/users", produces = "application/json; charset=UTF-8")
-    public ResponseEntity<Map<String, Object>> createUser(@RequestBody UserDTO userDTO) throws Exception {
-        Map<String, Object> createResult = new HashMap<>();
-
-        userService.save(userDTO);
-        createResult.put("createResult", 200);
-        return ResponseEntity.ok(createResult);
+    public Map<String, String> createUser(@Validated @RequestBody UserDTO userDTO, BindingResult bindingResult) throws Exception {
+        Map<String, String> createResult = new HashMap<>();
+        
+        if (bindingResult.hasErrors()) {   // 파라미터(UserDTO 등록 폼에서의 입력값)에 대한 유효성 검사 메세지가 있는 경우
+            List<FieldError> allErrors = bindingResult.getFieldErrors();
+            for (FieldError error : allErrors) {
+                createResult.put(error.getField(), error.getDefaultMessage());
+            }
+        } else {
+            userService.save(userDTO);
+            createResult.put("createResult", "200");
+        }
+        return createResult;
     }
 
-/*    *//**
+    /*    *//**
      * Modify User
      *
      * @param id      id (= PK)

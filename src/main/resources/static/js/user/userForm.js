@@ -4,7 +4,7 @@ const moveListButton = document.getElementById('moveListButton');
 /**
  * 계정 목록 페이지로 이동
  */
-moveListPage = () =>{
+moveListPage = () => {
     window.location.href = '/users/list';
 }
 
@@ -22,8 +22,30 @@ getUserData = () => {
 }
 
 /**
+ * 등록 버튼 클릭 시
+ * Form ValidationMessage 초기화
+ */
+function resetFormValidMessage() {
+    $('#userIdValidMessage').html("");
+    $('#passwordValidMessage').html("");
+    $('#nameValidMessage').html("");
+    $('#companyNameValidMessage').html("");
+    $('#departmentValidMessage').html("");
+}
+
+/**
+ * 입력 값에 대한 validationMessage 설정
+ * @param validationMessage validationMessage
+ */
+function setFormValidationMessage(validationMessage) {
+    $.each(validationMessage, function (index, item) {
+        $('#' + index + "ValidMessage").html(item);
+    })
+}
+
+/**
  * 계정 정보 저장
- * 
+ *
  * @param UsersData userData
  * @returns save Result Code
  */
@@ -47,11 +69,16 @@ setUsers = (UsersData) => {
  * 저장 버튼 클릭 시
  */
 saveButton.addEventListener("click", () => {
+    resetFormValidMessage();
     let userData = getUserData();
-    setUsers(userData).then(response=>{
-        if (response['createResult'] === 200) {
-            alert('정상적으로 등록되었습니다.');
-            moveListPage();
+    setUsers(userData).then(response => {
+        if (response['saveResult'] === '200') {
+            if (confirm('계정을 생성하시겠습니까?')) {
+                alert('정상적으로 등록되었습니다.');
+                moveListPage();
+            }
+        } else {
+            setFormValidationMessage(response)
         }
     })
 })
