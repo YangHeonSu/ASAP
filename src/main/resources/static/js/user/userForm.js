@@ -72,7 +72,8 @@ saveButton.addEventListener("click", () => {
     resetFormValidMessage();
     let userData = getUserData();
     setUsers(userData).then(response => {
-        if (response['saveResult'] === '200') {
+        console.log(response)
+        if (response['createResult'] === "200") {
             if (confirm('계정을 생성하시겠습니까?')) {
                 alert('정상적으로 등록되었습니다.');
                 moveListPage();
