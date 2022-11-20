@@ -1,21 +1,23 @@
+const saveButton = document.getElementById('createUserButton');
+const moveListButton = document.getElementById('moveListButton');
+
 /**
  * 계정 목록 페이지로 이동
  */
-function moveListPage() {
+moveListPage = () => {
     window.location.href = '/users/list';
 }
 
 /**
  * 계정 등록 정보 가져오기 JSON
  */
-function getUserData() {
+getUserData = () => {
     return {
         userId: $('#userId').val(),
         password: $('#password').val(),
         name: $('#name').val(),
         companyName: $('#companyName').val(),
-        department: $('#department').val(),
-        auth : $('#auth').val()
+        department: $('#department').val()
     }
 }
 
@@ -47,39 +49,37 @@ function setFormValidationMessage(validationMessage) {
  * @param UsersData userData
  * @returns save Result Code
  */
-function setUsers(UsersData) {
-    $.ajax({
-        method: 'POST',
-        url: '/users',
-        contentType: 'application/json; charset=UTF-8',
-        data: JSON.stringify(UsersData),
-        dataType: 'json',
-    }).done(function (response) {
-       if (response['createResult'] === '200') {
-           alert('정상적으로 등록되었습니다.');
-           moveListPage();
-       } else{
-           setFormValidationMessage(response)
-       }
+setUsers = (UsersData) => {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            method: 'POST',
+            url: '/users',
+            contentType: 'application/json; charset=UTF-8',
+            data: JSON.stringify(UsersData),
+            dataType: 'json',
+        }).done(response => {
+            resolve(response);
+        }).fail((xhr, status, error) => {
+            reject(error);
+        })
     })
 }
 
 /**
  * 저장 버튼 클릭 시
  */
-$('#createUserButton').on("click", function () {
+saveButton.addEventListener("click", () => {
     resetFormValidMessage();
-    if (confirm("계정을 생성하시겠습니까?")) {
-        let data = getUserData();
-        setUsers(data);
-    }
+    let userData = getUserData();
+    setUsers(userData).then(response => {
+        if (response['saveResult'] === '200') {
+            if (confirm('계정을 생성하시겠습니까?')) {
+                alert('정상적으로 등록되었습니다.');
+                moveListPage();
+            }
+        } else {
+            setFormValidationMessage(response)
+        }
+    })
 })
 
-/**
- * 취소 버튼 클릭 시
- */
-$('#cancelButton').on("click", function () {
-    if (confirm("계정 목록 페이지로 이동하시겠습니까?\n이동 시 입력 내용은 저장되지 않습니다.")) {
-        moveListPage();
-    }
-})

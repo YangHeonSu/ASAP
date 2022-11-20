@@ -6,35 +6,28 @@
     <form>
         <div>
             <label for="userId" class="dt">아이디</label>
-            <input type="text" id="userId" name="userId" class="form-control">
-            <label id="userIdValidMessage" name="validMessage"></label>
+            <input type="text" id="userId" name="userId" class="form-control" maxlength="20">
+            <label class="text-danger" id="userIdValidMessage" name="validMessage"></label>
         </div>
         <div>
             <label for="password">비밀번호</label>
-            <input type="password" id="password" name="password" class="form-control">
-            <label id="passwordValidMessage" name="validMessage" ></label>
-        </div>
-        <div>
-            <label for="password">비밀번호 확인</label>
-            <input type="password" id="passwordConfirm" name="passwordConfirm" class="form-control">
-
+            <input type="password" id="password" name="password" class="form-control" maxlength="12">
+            <label class="text-danger" id="passwordValidMessage" name="validMessage" ></label>
         </div>
         <div>
             <label for="name">이름</label>
-            <input type="text" id="name" name="name" class="form-control">
-            <label id="nameValidMessage" name="validMessage" ></label>
-
+            <input type="text" id="name" name="name" class="form-control" maxlength="5">
+            <label class="text-danger" id="nameValidMessage" name="validMessage" ></label>
         </div>
         <div>
             <label for="companyName">회사명</label>
-            <input type="text" id="companyName" name="companyName" class="form-control" >
-            <label id="companyNameValidMessage" name="validMessage" ></label>
-
+            <input type="text" id="companyName" name="companyName" class="form-control"  maxlength="20">
+            <label class="text-danger" id="companyNameValidMessage" name="validMessage" ></label>
         </div>
         <div>
             <label for="department">부서</label>
-            <input type="text" id="department" name="department" class="form-control">
-            <label id="departmentValidMessage" name="validMessage" ></label>
+            <input type="text" id="department" name="department" class="form-control" maxlength="20">
+            <label class="text-danger" id="departmentValidMessage" name="validMessage" ></label>
         </div>
         <div>
             <label for="auth">권한</label>
