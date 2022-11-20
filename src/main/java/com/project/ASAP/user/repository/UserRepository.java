@@ -17,6 +17,8 @@ public interface UserRepository extends JpaRepository<UserDTO, String> {
     @Override
     List<UserDTO> findAll();
 
+    Optional<UserDTO> findByUserId(String userId);
+
 
     /*    *//**
      * Register User

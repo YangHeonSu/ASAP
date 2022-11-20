@@ -3,6 +3,7 @@ package com.project.ASAP.user.service;
 import com.project.ASAP.user.domain.UserDTO;
 import com.project.ASAP.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -14,6 +15,8 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     /**
      * load Users
@@ -31,6 +34,7 @@ public class UserService {
      * @throws Exception the Exception
      */
     public void save(UserDTO userDTO) throws Exception {
+        userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword())); // 비빌번호 해쉬 암호화
         userRepository.save(userDTO);
     }
 

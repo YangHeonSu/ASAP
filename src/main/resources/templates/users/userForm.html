@@ -36,6 +36,13 @@
             <input type="text" id="department" name="department" class="form-control">
             <label id="departmentValidMessage" name="validMessage" ></label>
         </div>
+        <div>
+            <label for="auth">권한</label>
+            <select id="auth" class="form-control">
+                <option value="ROLE_ADMIN">관리자</option>
+                <option value="ROLE_USER">사용자</option>
+            </select>
+        </div>
     </form>
     <div class="float-right mt-2">
         <button type="button" class="btn btn-primary" id="createUserButton">생성</button>

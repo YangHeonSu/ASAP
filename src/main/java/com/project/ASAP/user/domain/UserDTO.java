@@ -33,4 +33,6 @@ public class UserDTO {
     @NotBlank(message = "부서명을 입력해주세요.")
     @Column(name = "department")
     private String department="";
+
+    private String auth = "";
 }
