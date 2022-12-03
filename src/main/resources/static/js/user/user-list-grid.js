@@ -1,4 +1,4 @@
-window.onload = function () {
+function getUser() {
     $.ajax({
         method: 'GET',
         url:'/users',

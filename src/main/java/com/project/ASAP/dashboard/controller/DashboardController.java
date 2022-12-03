@@ -10,9 +10,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-public class dashboardController {
-    @GetMapping("dashboard")
+public class DashboardController {
+
+    @GetMapping("/dashboard.do")
     public String dashboard() {
-        return "dashboard";
+        return "/dashboard";
     }
 }

@@ -31,9 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/admin/**").hasRole("ADMIN") //admin으로 시작하는 모든 경로는 ADMIN 권한 사용자만 접근
                 .antMatchers("/users/**").permitAll() // 모든 경로에 권한없이 접근 가능
                 .antMatchers("/users").permitAll()
-                .antMatchers("/login.do").permitAll()
-                .antMatchers("/loginProc.do").permitAll()
-                .antMatchers("/logout.do").permitAll()
+                .antMatchers("/log*").permitAll()
                 .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -41,12 +39,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("userId")
                     .passwordParameter("password")
                     .loginProcessingUrl("/loginProc.do") // Security 에서 해당 주소로 오는 요청을 낚아채서 수행한다.
-                    .defaultSuccessUrl("/users/list") // 로그인 성공 시 이동 되는 페이지
-/*                    .failureUrl("/")*/
+                    .defaultSuccessUrl("/dashboard.do", true)// 로그인 성공 시 이동 되는 페이지
                 .and()
                     .logout()
                     .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                    .logoutSuccessUrl("/logout.do")
+                    .logoutSuccessUrl("/login.do")
                     .invalidateHttpSession(true)
                 .and()
                     .exceptionHandling().accessDeniedPage("/login/denied");

@@ -38,8 +38,8 @@ public class UserRestController {
      * @throws Exception the Exception
      */
     @PostMapping(value = "/users", produces = "application/json; charset=UTF-8")
-    public Map<String, String> createUser(@Validated @RequestBody UserDTO userDTO, BindingResult bindingResult) throws Exception {
-        Map<String, String> createResult = new HashMap<>();
+    public Map<String, Object> createUser(@Validated @RequestBody UserDTO userDTO, BindingResult bindingResult) throws Exception {
+        Map<String, Object> createResult = new HashMap<>();
         
         if (bindingResult.hasErrors()) {   // 파라미터(UserDTO 등록 폼에서의 입력값)에 대한 유효성 검사 메세지가 있는 경우
             List<FieldError> allErrors = bindingResult.getFieldErrors();
@@ -48,7 +48,7 @@ public class UserRestController {
             }
         } else {
             userService.save(userDTO);
-            createResult.put("createResult", "200");
+            createResult.put("createResult", 200);
         }
         return createResult;
     }

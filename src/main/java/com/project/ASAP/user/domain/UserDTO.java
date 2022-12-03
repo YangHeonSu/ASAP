@@ -2,8 +2,6 @@ package com.project.ASAP.user.domain;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -38,7 +36,7 @@ public class UserDTO {
 
     @NotBlank(message = "부서명을 입력해주세요.")
     @Column(name = "DEPARTMENT_NAME")
-    private String department="";
+    private String department_name="";
 
     private String auth = "";
 }

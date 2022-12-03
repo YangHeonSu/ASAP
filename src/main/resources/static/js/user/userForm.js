@@ -1,17 +1,28 @@
-const saveButton = document.getElementById('createUserButton');
-const moveListButton = document.getElementById('moveListButton');
+/**
+ * 등록 버튼 클릭 시
+ */
+$('#createUserButton').on("click", function () {
+    resetFormValidMessage();
+    if (confirm("등록하시겠습니까?")) {
+        let userFormData = getUserData();
+        setUsers(userFormData);
+    }
+})
 
 /**
- * 계정 목록 페이지로 이동
+ * 취소 버튼 클릭 시
  */
-moveListPage = () => {
-    window.location.href = '/users/list';
-}
+$('#cancelButton').on("click", function () {
+    if (confirm("사용자 목록 페이지로 이동하시겠습니까?" + '\n' + "이동 시 입력 내용은 저장되지 않습니다.")) {
+        window.location.href = '/users/list';
+    }
+})
+
 
 /**
  * 계정 등록 정보 가져오기 JSON
  */
-getUserData = () => {
+function getUserData() {
     return {
         userId: $('#userId').val(),
         password: $('#password').val(),
@@ -45,41 +56,22 @@ function setFormValidationMessage(validationMessage) {
 
 /**
  * 계정 정보 저장
- *
  * @param UsersData userData
  * @returns save Result Code
  */
-setUsers = (UsersData) => {
-    return new Promise((resolve, reject) => {
-        $.ajax({
-            method: 'POST',
-            url: '/users',
-            contentType: 'application/json; charset=UTF-8',
-            data: JSON.stringify(UsersData),
-            dataType: 'json',
-        }).done(response => {
-            resolve(response);
-        }).fail((xhr, status, error) => {
-            reject(error);
-        })
-    })
-}
-
-/**
- * 저장 버튼 클릭 시
- */
-saveButton.addEventListener("click", () => {
-    resetFormValidMessage();
-    let userData = getUserData();
-    setUsers(userData).then(response => {
-        if (response['saveResult'] === '200') {
-            if (confirm('계정을 생성하시겠습니까?')) {
-                alert('정상적으로 등록되었습니다.');
-                moveListPage();
-            }
+function setUsers(UsersData) {
+    $.ajax({
+        method: 'POST',
+        url: '/users',
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify(UsersData),
+        dataType: 'json',
+    }).done(function (response) {
+        if (response['saveResult'] === 200) {
+            alert('정상적으로 등록되었습니다.');
+            location.href = '/users/list';
         } else {
-            setFormValidationMessage(response)
+            setFormValidationMessage(response);
         }
     })
-})
-
+}

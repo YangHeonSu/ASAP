@@ -17,6 +17,9 @@ public interface UserRepository extends JpaRepository<UserDTO, String> {
     @Override
     List<UserDTO> findAll();
 
+    @Override
+    Optional<UserDTO> findById(String id);
+
     Optional<UserDTO> findByUserId(String userId);
 
 
@@ -29,7 +32,7 @@ public interface UserRepository extends JpaRepository<UserDTO, String> {
     public void registerUser(UserDTO userDTO) throws Exception;
 
     *//**
-     * Find User Info By Id(Pk)
+     * Find User By Id(Pk)
      * @param id (pk Id)
      *
      * @return UserDTO user

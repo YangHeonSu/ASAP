@@ -1,6 +1,7 @@
 package com.project.ASAP.user.controller;
 
 import com.project.ASAP.user.domain.UserDTO;
+import com.project.ASAP.user.repository.UserRepository;
 import com.project.ASAP.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ public class UserController {
 
     private final UserService userService;
 
+    private final UserRepository userRepository;
+
     /**
      * load Users list Page
      *
@@ -24,7 +27,7 @@ public class UserController {
      * @throws Exception
      */
     @GetMapping("/users/list")
-    public String loadUser() throws Exception {
+    public String getUserListPage() throws Exception {
         return "users/userList";
     }
 
@@ -39,19 +42,20 @@ public class UserController {
         return "users/userForm";
     }
 
-  /*  *//**
-     *
-     *
-     * @param model
-     * @param id
-     * @return
-     * @throws Exception
-     *//*
+    /**
+     * @param model Model
+     * @param id    User의 ID(PK)
+     * @return userDetailPage
+     * @throws Exception the Exception
+     */
     @GetMapping("/users/detail/{id}")
     public String modifyUserForm(Model model, @PathVariable String id) throws Exception {
-        Optional<UserDTO> user = userService.findUserById(id);
-        UserDTO userInfo = user.get();
-        model.addAttribute("user", userInfo);
+       Optional<UserDTO> user = userService.findById(id);
+       if (user.isPresent()) {
+           model.addAttribute("user", user.get());
+       }
+       // return Optional.ofNullable(userRepository.findById(id).get()).orElseThrow(() -> new IllegalArgumentException("user not exist"));
+
         return "users/userDetail";
-    }*/
+    }
 }

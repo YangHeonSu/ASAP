@@ -1,18 +1,14 @@
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <link rel="stylesheet" href="/css/sb-admin-2.css" type="text/css"/>
 
 <div class="container">
     <form>
-        <input type="hidden" id="id" name="id" th:value="${user.id}">
+  <!--      <input type="hidden" id="id" name="id" th:value="${user.id}">-->
 
         <div>
             <label>아이디</label>
-            <div th:text="${user.userId}"/>
-        </div>
-        <div>
-            <label for="password">비밀번호</label>
-            <input type="password" id="password" name="password" class="form-control">
+            <a th:text="${user.userId}"></a>
         </div>
         <div>
             <label for="name">이름</label>
@@ -24,7 +20,7 @@
         </div>
         <div>
             <label for="department">부서</label>
-            <input type="text" id="department" name="department" class="form-control" th:value="${user.department}">
+            <input type="text" id="department" name="department" class="form-control" th:value="${user.department_name}">
         </div>
         <div align="right" class="mt-1">
             <button type="button" class="btn btn-dark" id="moveListButton">목록</button>
@@ -36,9 +32,5 @@
 
 
 
-<script type="text/javascript" src="/js/user/user-form-model.js"></script>
-<script type="text/javascript" src="/js/user/user-detail-view.js"></script>
-<script type="text/javascript" src="/js/user/user-detail-controller.js"></script>
-<script type="text/javascript" src="/js/user/user-detail-app.js"></script>
 
 
