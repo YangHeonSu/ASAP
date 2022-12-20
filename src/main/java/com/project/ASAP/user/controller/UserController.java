@@ -8,9 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.Optional;
-
 
 @Controller
 @RequiredArgsConstructor
@@ -22,7 +20,6 @@ public class UserController {
 
     /**
      * load Users list Page
-     *
      * @return Users LiST Page
      * @throws Exception
      */
@@ -33,7 +30,6 @@ public class UserController {
 
     /**
      * User Create Form
-     *
      * @return user Create Form Page
      * @throws Exception
      */

@@ -2,9 +2,10 @@
  * 저장 버튼 클릭 시
  */
 $('#saveUserButton').on("click", function () {
+    resetFormValidMessage();
     if (confirm("계정 정보를 수정하시겠습니까?")) {
         let data = getFormData();
-
+        saveUser(data);
     }
 })
 
@@ -22,7 +23,8 @@ $('#moveListButton').on("click", function () {
  */
 $('#deleteButton').on("click", function () {
     if (confirm("해당 계정을 삭제하시겠습니까?" + '\n' + "삭제 시 복구할 수 없습니다.")) {
-
+        let id = getFormData().id;
+        deleteUser(id);
     }
 })
 
@@ -38,4 +40,66 @@ function getFormData() {
         department: $('#department').val(),
         companyName: $('#companyName').val()
     }
+}
+
+/**
+ * 입력 값에 대한 validationMessage 설정
+ * @param validationMessage validationMessage
+ */
+function setFormValidationMessage(validationMessage) {
+    $.each(validationMessage, function (index, item) {
+        $('#' + index + "ValidMessage").html(item);
+    })
+}
+
+/**
+ * 등록 버튼 클릭 시
+ * Form ValidationMessage 초기화
+ */
+function resetFormValidMessage() {
+    $('#userIdValidMessage').html("");
+    $('#passwordValidMessage').html("");
+    $('#nameValidMessage').html("");
+    $('#companyNameValidMessage').html("");
+    $('#departmentValidMessage').html("");
+}
+
+/**
+ * 사용자 계정정보 저장
+ * @param userData userFormData
+ */
+function saveUser(userData) {
+    $.ajax({
+        method : 'POST',
+        url : '/users',
+        contentType: 'application/json; charset=UTF-8',
+        data: JSON.stringify(userData),
+        dataType: 'json',
+    }).done(function (response) {
+        if (response['saveResult'] === 200) {
+            alert('정상적으로 저장되었습니다.');
+            location.href = '/users/list';
+        } else {
+            setFormValidationMessage(response);
+        }
+    })
+}
+
+/**
+ * 계정 삭제
+ * @param id
+ */
+function deleteUser(id) {
+    $.ajax({
+        method : 'DELETE',
+        url : '/users/'+ id ,
+        contentType: 'application/json; charset=UTF-8',
+        data: {"id" : id},
+        dataType: 'json',
+    }).done(function (response) {
+        if (response['deleteResult'] === 200) {
+            alert('정상적으로 삭제되었습니다.');
+            location.href = '/users/list';
+        } 
+    })
 }

@@ -28,7 +28,7 @@ function getUserData() {
         password: $('#password').val(),
         name: $('#name').val(),
         companyName: $('#companyName').val(),
-        department: $('#department').val()
+        department_name: $('#department').val()
     }
 }
 

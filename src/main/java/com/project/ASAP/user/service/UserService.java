@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.thymeleaf.util.StringUtils;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,16 +29,6 @@ public class UserService {
     }
 
     /**
-     * save user (계정 등록)
-     * @param userDTO userDTO
-     * @throws Exception the Exception
-     */
-    public void save(UserDTO userDTO) throws Exception {
-        userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword())); // 비빌번호 해쉬 암호화
-        userRepository.save(userDTO);
-    }
-
-    /**
      * Find User By Id(=PK)
      * @param id id
      * @return UserDTO user
@@ -46,4 +37,37 @@ public class UserService {
     public Optional<UserDTO> findById(String id) throws Exception{
         return userRepository.findById(id);
     }
+
+    /**
+     * save user (계정 등록, 수정)
+     * @param userDTO userDTO
+     * @throws Exception the Exception
+     */
+    public void save(UserDTO userDTO) throws Exception {
+        if (StringUtils.isEmpty(userDTO.getId())) {
+            userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword())); // 비빌번호 해쉬 암호화
+            userRepository.save(userDTO);
+        } else{
+            Optional<UserDTO> user = userRepository.findById(userDTO.getId());
+            if (user.isPresent()){
+                UserDTO userInfo  = user.get();
+                userInfo.setName(userDTO.getName());
+                userInfo.setAuth(userDTO.getAuth());
+                userInfo.setCompanyName(userDTO.getCompanyName());
+                userInfo.setDepartment_name(userDTO.getDepartment_name());
+                userRepository.save(userInfo);
+            }
+        }
+    }
+
+    /**
+     * Delete User
+     * @param id String id (= pk)
+     * @throws Exception the Exception
+     */
+    public void deleteUser(String id) throws Exception {
+        userRepository.deleteById(id);
+    }
+
+
 }

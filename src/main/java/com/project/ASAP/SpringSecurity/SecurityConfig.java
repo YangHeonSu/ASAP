@@ -22,7 +22,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity webSecurity) throws Exception {
         // 특정 경로에 대해서는 무시
-        webSecurity.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/font/**", "/html/**");
+        webSecurity.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/font/**", "/html/**", "/templates/**");
     }
 
     @Override

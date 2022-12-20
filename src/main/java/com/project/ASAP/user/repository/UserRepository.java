@@ -22,40 +22,7 @@ public interface UserRepository extends JpaRepository<UserDTO, String> {
 
     Optional<UserDTO> findByUserId(String userId);
 
+    @Override
+    void deleteById(String id);
 
-    /*    *//**
-     * Register User
-     *
-     * @param userDTO userDTO
-     * @throws Exception the Exception
-     *//*
-    public void registerUser(UserDTO userDTO) throws Exception;
-
-    *//**
-     * Find User By Id(Pk)
-     * @param id (pk Id)
-     *
-     * @return UserDTO user
-     * @throws Exception the Exception
-     *//*
-    public Optional<UserDTO> findUserById(String id) throws Exception;
-
-
-
-    *//**
-     * Modify User By Id( == PK)
-     *
-     * @param userDTO  userDTO
-     * @return  Optional<UserDTO> modifyUsers
-     * @throws Exception the Exception
-     *//*
-    public void modifyUser(UserDTO userDTO) throws Exception;
-
-    *//**
-     * Delete User
-     *
-     * @param userCode userCode (= PK)
-     * @throws Exception the Exception
-     *//*
-    public void deleteUser(String userCode) throws Exception;*/
 }
