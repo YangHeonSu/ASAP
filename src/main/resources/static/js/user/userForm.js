@@ -18,7 +18,6 @@ $('#cancelButton').on("click", function () {
     }
 })
 
-
 /**
  * 계정 등록 정보 가져오기 JSON
  */
@@ -28,7 +27,8 @@ function getUserData() {
         password: $('#password').val(),
         name: $('#name').val(),
         companyName: $('#companyName').val(),
-        department_name: $('#department').val()
+        department_name: $('#department_name').val(),
+        auth : $('#auth').val()
     }
 }
 
@@ -41,7 +41,8 @@ function resetFormValidMessage() {
     $('#passwordValidMessage').html("");
     $('#nameValidMessage').html("");
     $('#companyNameValidMessage').html("");
-    $('#departmentValidMessage').html("");
+    $('#department_nameValidMessage').html("");
+    $('#authValidMessage').html("");
 }
 
 /**

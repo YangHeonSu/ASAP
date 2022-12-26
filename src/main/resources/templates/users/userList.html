@@ -1,24 +1,34 @@
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="../tui-grid/tui-grid.css" type="text/css"/>
-<script src="../tui-grid/tui-grid.js"></script>
-<script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-<link rel="stylesheet" th:href="@{/css/sb-admin-2.css}" type="text/css"/>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}">
 
-<div class="">
-    <div class="">
-        <input type="text" class="form-control float-left w-75 mr-1" id="userSearchKeyword">
-        <button type="button" class="btn btn-dark" id="userSearchButton">검색</button>
-    </div>
+<head>
+    <title>계정 목록</title>
+</head>
+<body>
+<th:block layout:fragment="content">
 
-    <div align="right">
-        <button type="button" class="btn btn-primary mb-1" id="moveForm">등록</button>
-    </div>
-    <div id="userGrid"></div>
-</div>
+        <div class="container">
+            <label for="userSearchKeyword"></label><input type="text" class="form-control float-left w-75 mr-1" id="userSearchKeyword">
+            <button type="button" class="btn btn-dark" id="userSearchButton">검색</button>
+        </div>
+        <div class="container-fluid mt-3">
+            <div class="mb-3 float-right">
+                <button type="button" id="moveForm" class="btn btn-primary">등록</button>
+            </div>
+            <div id="userGrid"></div>
+        </div>
+</th:block>
+
+<th:block layout:fragment="scriptFragment">
+
+</th:block>
+</body>
 </html>
 
 
 <script type="text/javascript" th:src="@{/js/user/user-list-grid.js}"></script>
 <script type="text/javascript" th:src="@{/js/user/userList.js}"></script>
+
 
 

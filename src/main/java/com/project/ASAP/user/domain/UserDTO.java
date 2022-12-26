@@ -38,5 +38,7 @@ public class UserDTO {
     @Column(name = "DEPARTMENT_NAME")
     private String department_name="";
 
+    @NotBlank(message = "권한을 선택해주세요.")
+    @Column(name = "auth")
     private String auth = "";
 }
