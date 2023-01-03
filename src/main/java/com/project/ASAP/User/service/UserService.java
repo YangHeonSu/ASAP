@@ -1,8 +1,11 @@
-package com.project.ASAP.user.service;
+package com.project.ASAP.User.service;
 
-import com.project.ASAP.user.domain.UserDTO;
-import com.project.ASAP.user.repository.UserRepository;
+import com.project.ASAP.User.Domain.User;
+import com.project.ASAP.User.Domain.UserDTO;
+import com.project.ASAP.User.UserMapper;
+import com.project.ASAP.User.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,12 +22,13 @@ public class UserService {
 
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+
     /**
      * find Users
      * @return List<UserDTO> users
      * @throws Exception the Excetpion
      */
-    public List<UserDTO> findAll() throws Exception {
+    public List<User> findAll() throws Exception {
         return userRepository.findAll();
     }
 
@@ -34,7 +38,7 @@ public class UserService {
      * @return UserDTO user
      * @throws Exception the Exception
      */
-    public Optional<UserDTO> findById(String id) throws Exception{
+    public Optional<User> findById(String id) throws Exception{
         return userRepository.findById(id);
     }
 
@@ -44,19 +48,23 @@ public class UserService {
      * @throws Exception the Exception
      */
     public void save(UserDTO userDTO) throws Exception {
+        User user = UserMapper.INSTANCE.toEntity(userDTO);
         if (StringUtils.isEmpty(userDTO.getId())) {
-            userDTO.setPassword(bCryptPasswordEncoder.encode(userDTO.getPassword())); // 비빌번호 해쉬 암호화
-            userRepository.save(userDTO);
+            userDTO.bCryptPasswordEncoder(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+            userRepository.save(user);
         } else{
-            Optional<UserDTO> user = userRepository.findById(userDTO.getId());
+            //User user = UserMapper.INSTANCE.toEntity(userDTO);
+            userRepository.save(user);
+/*            Optional<User> user = userRepository.findById(userDTO.getId());
             if (user.isPresent()){
+                UserDTO userInfo = UserMapper.INSTANCE.toDto(user);
                 UserDTO userInfo  = user.get();
                 userInfo.setName(userDTO.getName());
                 userInfo.setAuth(userDTO.getAuth());
                 userInfo.setCompanyName(userDTO.getCompanyName());
                 userInfo.setDepartment_name(userDTO.getDepartment_name());
                 userRepository.save(userInfo);
-            }
+            }*/
         }
     }
 

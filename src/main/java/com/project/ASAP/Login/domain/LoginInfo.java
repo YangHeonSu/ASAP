@@ -1,6 +1,6 @@
 package com.project.ASAP.Login.domain;
 
-import com.project.ASAP.user.domain.UserDTO;
+import com.project.ASAP.User.Domain.UserDTO;
 import lombok.Getter;
 import lombok.Setter;
 

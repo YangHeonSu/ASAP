@@ -1,6 +1,6 @@
 package com.project.ASAP.Login.service;
 
-import com.project.ASAP.user.domain.UserDTO;
+import com.project.ASAP.User.Domain.UserDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

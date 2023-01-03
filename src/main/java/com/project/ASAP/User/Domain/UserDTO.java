@@ -1,15 +1,15 @@
-package com.project.ASAP.user.domain;
+package com.project.ASAP.User.Domain;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
-@Entity
+@Data
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor
 @Table(name = "user")
-@Getter
-@Setter
 public class UserDTO {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,8 +26,8 @@ public class UserDTO {
 
     @Column(name = "PASSWORD")
     @NotBlank(message = "비밀번호를 입력해주세요.")
-  /*  @Pattern(regexp="(?=.*[0-9])(?=.*[a-z])(?=.*\\W)(?=\\S+$).{6,12}|",
-            message = "비밀번호는 영문자와 숫자, 특수기호가 적어도 1개 이상 포함된 6자~12자의 비밀번호여야 합니다.")*/
+    @Pattern(regexp="(?=.*[0-9])(?=.*[a-z])(?=.*\\W)(?=\\S+$).{6,12}|",
+            message = "비밀번호는 영문자와 숫자, 특수기호가 적어도 1개 이상 포함된 6자~12자의 비밀번호여야 합니다.")
     private String password="";
 
     @NotBlank(message = "회사명을 입력해주세요.")
@@ -41,4 +41,8 @@ public class UserDTO {
     @NotBlank(message = "권한을 선택해주세요.")
     @Column(name = "auth")
     private String auth = "";
+
+    public void bCryptPasswordEncoder(String bCryptPassword) {
+        this.password = bCryptPassword;
+    }
 }

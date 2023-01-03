@@ -1,8 +1,9 @@
-package com.project.ASAP.user.controller;
+package com.project.ASAP.User.controller;
 
-import com.project.ASAP.user.domain.UserDTO;
-import com.project.ASAP.user.repository.UserRepository;
-import com.project.ASAP.user.service.UserService;
+import com.project.ASAP.User.Domain.User;
+import com.project.ASAP.User.Domain.UserDTO;
+import com.project.ASAP.User.repository.UserRepository;
+import com.project.ASAP.User.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,7 +47,7 @@ public class UserController {
      */
     @GetMapping("/users/detail/{id}")
     public String modifyUserForm(Model model, @PathVariable String id) throws Exception {
-       Optional<UserDTO> user = userService.findById(id);
+       Optional<User> user = userService.findById(id);
        if (user.isPresent()) {
            model.addAttribute("user", user.get());
        }

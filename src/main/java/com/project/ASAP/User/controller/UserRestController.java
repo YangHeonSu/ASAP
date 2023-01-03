@@ -1,9 +1,9 @@
-package com.project.ASAP.user.controller;
+package com.project.ASAP.User.controller;
 
-import com.project.ASAP.user.domain.UserDTO;
-import com.project.ASAP.user.service.UserService;
+import com.project.ASAP.User.Domain.User;
+import com.project.ASAP.User.Domain.UserDTO;
+import com.project.ASAP.User.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
@@ -25,7 +25,7 @@ public class UserRestController {
      * @throws Exception the Exception
      */
     @GetMapping(value = "/users", produces = "application/json; charset=UTF-8")
-    public List<UserDTO> findAll() throws Exception {
+    public List<User> findAll() throws Exception {
         return userService.findAll();
     }
 

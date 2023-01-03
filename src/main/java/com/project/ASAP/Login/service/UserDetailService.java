@@ -1,11 +1,11 @@
 package com.project.ASAP.Login.service;
 
 import com.project.ASAP.Login.domain.LoginInfo;
-import com.project.ASAP.SpringSecurity.SecurityConfig;
-import com.project.ASAP.user.domain.UserDTO;
-import com.project.ASAP.user.repository.UserRepository;
+import com.project.ASAP.User.Domain.User;
+import com.project.ASAP.User.Domain.UserDTO;
+import com.project.ASAP.User.UserMapper;
+import com.project.ASAP.User.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.Session;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,9 +28,10 @@ public class UserDetailService implements UserDetailsService {
      */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserDTO user = userRepository.findByUserId(username).orElseThrow(()->
+        User user = userRepository.findByUserId(username).orElseThrow(()->
                 new UsernameNotFoundException("해당 사용자가 존재하지 않습니다. : " + username));
-        session.setAttribute("user", new LoginInfo(user)); // Security 세션에 유저 정보 저장
-        return new CustomUserDetails(user);
+        UserDTO userInfo = UserMapper.INSTANCE.toDto(user);
+        session.setAttribute("user", new LoginInfo(userInfo)); // Security 세션에 유저 정보 저장
+        return new CustomUserDetails(userInfo);
     }
 }
