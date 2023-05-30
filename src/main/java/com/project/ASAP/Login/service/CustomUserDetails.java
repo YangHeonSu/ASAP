@@ -2,6 +2,7 @@ package com.project.ASAP.Login.service;
 
 import com.project.ASAP.User.Domain.UserDTO;
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -13,6 +14,7 @@ import java.util.Collection;
  * Spring Security의 고유한 Session 저장소에 저장한다.
  */
 @AllArgsConstructor
+@EqualsAndHashCode(of = "username")
 public class CustomUserDetails implements UserDetails {
     private final UserDTO userDTO;
     @Override

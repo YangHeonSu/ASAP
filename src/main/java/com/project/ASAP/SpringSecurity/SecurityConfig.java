@@ -10,6 +10,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.session.SessionRegistry;
+import org.springframework.security.core.session.SessionRegistryImpl;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -29,8 +31,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable().authorizeRequests()
                 .antMatchers("/admin/**").hasRole("ADMIN") //admin으로 시작하는 모든 경로는 ADMIN 권한 사용자만 접근
-                .antMatchers("/users/**").permitAll() // 모든 경로에 권한없이 접근 가능
                 .antMatchers("/users").permitAll()
+                .antMatchers("/users/**").authenticated() // 모든 경로에 권한없이 접근 가능
                 .antMatchers("/log*").permitAll()
                 .anyRequest().authenticated()
                 .and()
@@ -47,6 +49,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .invalidateHttpSession(true)
                 .and()
                     .exceptionHandling().accessDeniedPage("/login/denied");
+        httpSecurity.sessionManagement()
+                .maximumSessions(1)
+                .maxSessionsPreventsLogin(false)
+                .expiredUrl("/expired")
+                .sessionRegistry(sessionRegistry())
+                .and().invalidSessionUrl("/invalid");
+
+    }
+
+    @Bean
+    public SessionRegistry sessionRegistry() {
+        return new SessionRegistryImpl();
     }
 
     @Bean

@@ -48,11 +48,14 @@ public class UserService {
      * @throws Exception the Exception
      */
     public void save(UserDTO userDTO) throws Exception {
-        User user = UserMapper.INSTANCE.toEntity(userDTO);
         if (StringUtils.isEmpty(userDTO.getId())) {
             userDTO.bCryptPasswordEncoder(bCryptPasswordEncoder.encode(userDTO.getPassword()));
+            User user = UserMapper.INSTANCE.toEntity(userDTO);
+
             userRepository.save(user);
         } else{
+            User user = UserMapper.INSTANCE.toEntity(userDTO);
+
             //User user = UserMapper.INSTANCE.toEntity(userDTO);
             userRepository.save(user);
 /*            Optional<User> user = userRepository.findById(userDTO.getId());
